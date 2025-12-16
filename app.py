@@ -6,7 +6,11 @@ from datetime import datetime
 # --- 1. 設定 Google Sheets 連線 ---
 #這三行是固定的咒語，用來告訴 Google 我們是誰
 scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-creds = ServiceAccountCredentials.from_json_keyfile_name("chiefirm-timeclock-08b635524685.json", scope)
+if "gcp_json" in st.secrets:
+    key_dict = json.loads(st.secrets["gcp_json"])
+    creds = ServiceAccountCredentials.from_json_keyfile_dict(key_dict, scope)
+else:
+    creds = ServiceAccountCredentials.from_json_keyfile_name("chiefirm-timeclock-08b635524685.json", scope)
 client = gspread.authorize(creds)
 
 # 打開你的試算表 (請確認這裡的名稱跟你的檔案名稱完全一樣)
@@ -71,3 +75,4 @@ with col2:
         
         if not found:
             st.error("❌ 找不到您的上班紀錄！請確認今天是否有打「上班卡」。")
+
