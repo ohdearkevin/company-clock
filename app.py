@@ -18,7 +18,7 @@ client = gspread.authorize(creds)
 sheet = client.open("智悅打卡表單").sheet1
 
 # --- 2. 建立 App 介面 ---
-st.title("⏰ 公司打卡系統")
+st.title("⏰ 智悅科技打卡系統")
 
 # 模擬員工名單
 employees = ['蔡禔瑜', '朱欣信', '張淑勤', '羅婉華', '陳玉惠']
@@ -84,6 +84,7 @@ with col2:
         
         if not found:
             st.error("❌ 找不到您的上班紀錄！請先打上班卡。")
+
 
 
 
